@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name:  goapp
+  namespace: default
+  labels:
+    app:  goapp
+spec:
+  selector:
+    matchLabels:
+      app: goapp
+  replicas: 1
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app:  goapp
+    spec:
+      containers:
+      - name:  goapp
+        image:  goapp
+        ports:
+        - containerPort:  8080
