@@ -39,8 +39,8 @@ jobs:
 
         - name: commit 
           run: |
-            git config --local user.email "leandro.ribeiro@hash.com.br"
-            git config --local user.user "leandrosouza22"
+            git config user.email "leandro.ribeiro@hash.com.br"
+            git config -user.name "leandrosouza22"
             git commit -am "change image tag"
 
         - name: push 
