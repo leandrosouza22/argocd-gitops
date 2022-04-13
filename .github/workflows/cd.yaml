@@ -33,9 +33,9 @@ jobs:
 
         - name: update k8s  
           run: 
-            cd k8s 
-            kustomize edit set image goapp=leribeir0/argocd-fullcycle:${{ github.sha }}
-            cat kustomization.yaml
+            cd k8s; 
+            kustomize edit set image goapp=leribeir0/argocd-fullcycle:${{ github.sha }};
+            cat kustomization.yaml;
 
         - name: commit 
           run: |
