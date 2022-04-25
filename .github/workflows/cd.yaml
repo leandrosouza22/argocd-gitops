@@ -81,12 +81,12 @@ jobs:
           uses: ad-m/github-push-action@master
 
     DAST:
-      runs-on: ubuntu-latest
+      runs-on: self-hosted
       name: Scan the webapplication
       needs: deploy
       steps:
       - name: ZAP Scan
         uses: zaproxy/action-full-scan@v0.3.0
         with:
-          target: 'https://www.zaproxy.org/'
+          target: 'http://localhost:8080/'
           
