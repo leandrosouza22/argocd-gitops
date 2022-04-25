@@ -1,9 +1,0 @@
-﻿{
-  "agentId": 21,
-  "agentName": "MacBook-Pro-de-Leandro",
-  "poolId": 1,
-  "poolName": "Default",
-  "serverUrl": "https://pipelines.actions.githubusercontent.com/3cS1KCnQwQ9wpvnz4eVQQ1YNMF4cbh02OsBQUOcexts6hKDs7N",
-  "gitHubUrl": "https://github.com/leandrosouza22/argocd-gitops",
-  "workFolder": "_work"
-}
