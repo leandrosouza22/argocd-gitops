@@ -3,9 +3,45 @@ on:
   push:
     branches: [main]
 jobs:
+    SAST:
+      name: Sast Scan
+      runs-on: ubuntu-latest
+      if: (github.actor != 'dependabot[bot]')
+      steps:
+      - uses: actions/checkout@v2
+      - uses: returntocorp/semgrep-action@v1
+        with:
+          publishToken: ${{ secrets.SEMGREP_APP_TOKEN }}
+
+    SCA:
+      name: SCA
+      runs-on: ubuntu-latest
+      needs: SAST
+      steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Build project with Maven
+        run: mvn clean install
+      - name: Depcheck
+        uses: dependency-check/Dependency-Check_Action@main
+        id: Depcheck
+        with:
+          project: 'test'
+          path: '.'
+          format: 'HTML'    
+          args: >
+            --failOnCVSS 7
+            --enableRetired
+      - name: Upload Test results
+        uses: actions/upload-artifact@master
+        with:
+           name: Depcheck report
+           path: ${{github.workspace}}/reports
+
     build:
       name: build
       runs-on: ubuntu-latest
+      needs: SCA
       steps:
         - name: checkout
           uses: actions/checkout@v2
@@ -45,3 +81,14 @@ jobs:
 
         - name: push 
           uses: ad-m/github-push-action@master
+
+    DAST:
+      runs-on: ubuntu-latest
+      name: Scan the webapplication
+      needs: deploy
+      steps:
+      - name: ZAP Scan
+        uses: zaproxy/action-full-scan@v0.3.0
+        with:
+          target: 'https://www.zaproxy.org/'
+          
