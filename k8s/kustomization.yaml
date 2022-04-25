@@ -9,4 +9,4 @@ namespace: goapp
 images:
 - name: goapp
   newName: leribeir0/argocd-fullcycle
-  newTag: cbd062be6a731ba0f6ab5d320f716820112ef671
+  newTag: c79ddecebc65e7cf272f3b04302b8cb1e98881f5
